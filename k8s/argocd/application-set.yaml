@@ -15,16 +15,22 @@ spec:
             env: prod
   template:
     metadata:
-      name: 'argodemo-{{region}}-{{env}}'
+      name: "argodemo-{{ region }}-{{ env }}"
     spec:
       project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=false
       source:
-        repoURL: 'https://github.com/moredrowsy/argodemo.git'
+        repoURL: "https://github.com/moredrowsy/argodemo.git"
         targetRevision: feature/ubuntu-minikube
         path: k8s/argodemo-chart
         helm:
           valueFiles:
-            - env/{{env}}/values.yaml
+            - "env/{{ env }}/values.yaml"
       destination:
-        server: 'https://kubernetes.default.svc'
+        server: "https://kubernetes.default.svc"
         namespace: default

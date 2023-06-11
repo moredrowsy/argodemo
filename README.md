@@ -61,7 +61,6 @@ EOF
 cat /etc/hosts
 ```
 
-
 ## Docker
 
 Build docker image
@@ -137,11 +136,13 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer", 
 ```
 
 Login
+
 - login: <http://localhost:8080>
 - username: admin
 - password: <from-previous-secret-step>
 
 Update password
+
 - Click `User Info` on the left pane
 - Click `UPDATE PASSWORD` on the top
 - Change new password to `password`
@@ -158,8 +159,20 @@ ArgoCD CLI login
 artgocd login localhost:8080
 ```
 
-Push argodemo to ArgoCD
+Two ArgoCD deployment options:
 
-```shell
-argocd app create argodemo --repo https://github.com/moredrowsy/argodemo.git  --path k8s/argodemo-chart --revision feature/ubuntu-minikube --dest-server https://kubernetes.default.svc --dest-namespace default
-```
+- Create Application:
+
+  ```shell
+  argocd app create argodemo --repo https://github.com/moredrowsy/argodemo.git  --path k8s/argodemo-chart --revision feature/ubuntu-minikube --dest-server https://kubernetes.default.svc --dest-namespace default
+  ```
+
+- Create AppplicationSet:
+
+  ```shell
+  kubectl apply -f k8s/argocd/application-set.yaml
+  ```
+
+  ```shell
+  kubectl delete -f k8s/argocd/application-set.yaml
+  ```
