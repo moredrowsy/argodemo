@@ -9,6 +9,7 @@ Project to demo ArgoCD in local machine
 - docker
 - minikube
 - helm
+- argocd cli
 
 ## Build Demo Spring Boot App
 
@@ -21,7 +22,7 @@ mvn clean install
 Start
 
 ```shell
-minikube start
+minikube start --driver=docker
 ```
 
 Add ingress addon to minikube
@@ -102,6 +103,8 @@ kubectl delete -Rf k8s/output
 
 ## ArgoCD
 
+<https://medium.com/@mehmetodabashi/installing-argocd-on-minikube-and-deploying-a-test-application-caa68ec55fbf>
+
 Install
 
 ```shell
@@ -127,18 +130,36 @@ Expose ArgoCD if you want to directly access
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
+Or modify ArgoCD as LoadBalancer to port 8080
+
+```shell
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer", "ports": [{"port": 8080, "name": "argocd-server-port"}]}}'
+```
+
 Login
- - login: <http://localhost:8080>
- - username: admin
- - password: <from-previous-secret-step>
+- login: <http://localhost:8080>
+- username: admin
+- password: <from-previous-secret-step>
 
 Update password
- - Click `User Info` on the left pane
- - Click `UPDATE PASSWORD` on the top
- - Change new password to `password`
+- Click `User Info` on the left pane
+- Click `UPDATE PASSWORD` on the top
+- Change new password to `password`
 
 Delete admin credential
 
 ```shell
 kubectl -n argocd delete secret argocd-initial-admin-secret
+```
+
+ArgoCD CLI login
+
+```shell
+artgocd login localhost:8080
+```
+
+Push argodemo to ArgoCD
+
+```shell
+argocd app create argodemo --repo https://github.com/moredrowsy/argodemo.git  --path k8s/argodemo-chart --revision feature/ubuntu-minikube --dest-server https://kubernetes.default.svc --dest-namespace default
 ```
