@@ -21,7 +21,7 @@ mvn clean install
 Start
 
 ```shell
-minikube start
+minikube start --driver=docker
 ```
 
 Add ingress addon to minikube
@@ -101,6 +101,8 @@ kubectl delete -Rf k8s/output
 ```
 
 ## ArgoCD
+
+<https://medium.com/@mehmetodabashi/installing-argocd-on-minikube-and-deploying-a-test-application-caa68ec55fbf>
 
 Install
 
