@@ -114,7 +114,7 @@ Expose ArgoCD if you want to directly access
 kubectl port-forward svc/argocd-server -n argocd 9080:443
 ```
 
-Or modify ArgoCD as LoadBalancer to port 8080
+Or modify ArgoCD as LoadBalancer to port 9080
 
 ```shell
 kubectl patch svc argocd-server -n argocd --type merge -p '{"spec": { "type": "LoadBalancer", "ports": [ { "name": "http", "port": 9080, "targetPort": 8080, "protocol": "TCP" }, { "name": "https", "port": 9443, "targetPort": 8080, "protocol": "TCP" } ] } }'
@@ -141,7 +141,7 @@ kubectl -n argocd delete secret argocd-initial-admin-secret
 ArgoCD CLI login
 
 ```shell
-artgocd login localhost:8080
+artgocd login localhost:9080
 ```
 
 Two ArgoCD deployment options:
