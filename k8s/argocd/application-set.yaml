@@ -5,20 +5,11 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    # matrix 'parent' generator
-    - matrix:
-        generators:
-          - list:
-              elements:
-                - region: na
-                  server: 'abc'
-                - region: sa
-                  server: 'def'
-          - list:
-              elements:
-                - env: dev
-                - env: qa
-                - env: prod
+    - git:
+        repoURL: https://github.com/argoproj/applicationset.git
+        revision: HEAD
+        files:
+          - path: "k8s/argodemo-chart/envs/**/config.json"
   template:
     metadata:
       name: "argodemo-{{ region }}-{{ env }}-{{ server }}"
