@@ -141,7 +141,7 @@ kubectl -n argocd delete secret argocd-initial-admin-secret
 ArgoCD CLI login
 
 ```shell
-artgocd login localhost:9080
+argocd login localhost:9080
 ```
 
 Two ArgoCD deployment options:
