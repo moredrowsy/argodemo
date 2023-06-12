@@ -15,6 +15,6 @@ public class Controller {
 
     @GetMapping("/")
     String index() {
-        return "Hello World; region: " + region + "; env :" + env;
+        return "Hello World. Region: " + region + ". Env: " + env;
     }
 }
