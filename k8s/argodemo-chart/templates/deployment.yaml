@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-{{ .Values.env }}-app
+  name: {{ .Chart.Name }}-{{ .Values.region }}-{{ .Values.env }}-app
   labels:
-    app: {{ .Chart.Name }}-{{ .Values.env }}-app
+    app: {{ .Chart.Name }}-{{ .Values.region }}-{{ .Values.env }}-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}-{{ .Values.env }}-app
+      app: {{ .Chart.Name }}-{{ .Values.region }}-{{ .Values.env }}-app
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}-{{ .Values.env }}-app
+        app: {{ .Chart.Name }}-{{ .Values.region }}-{{ .Values.env }}-app
     spec:
       containers:
-        - name: {{ .Chart.Name }}-{{ .Values.env }}-app
+        - name: {{ .Chart.Name }}-{{ .Values.region }}-{{ .Values.env }}-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.image.port }}
           envFrom:
             - configMapRef:
-                name: {{ .Chart.Name }}-{{ .Values.env }}-cm
+                name: {{ .Chart.Name }}-{{ .Values.region }}-{{ .Values.env }}-cm

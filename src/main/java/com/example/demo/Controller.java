@@ -6,11 +6,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
+
+    @Value("${region}")
+    String region;
+
     @Value("${env}")
     String env;
 
     @GetMapping("/")
     String index() {
-        return "Hello World env: " + env;
+        return "Hello World. Region: " + region + ". Env: " + env;
     }
 }

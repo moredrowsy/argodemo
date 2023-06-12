@@ -1,0 +1,12 @@
+env: dev
+region: na
+
+image:
+  repository: docker.io/moredrowsy/argodemo
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.1"
+  port: 8080
+
+service:
+  port: 8080
