@@ -11,12 +11,6 @@ Project to demo ArgoCD in local machine
 - helm
 - argocd cli
 
-## Build Demo Spring Boot App
-
-```shell
-mvn clean install
-```
-
 ## Minikube
 
 Start
@@ -59,15 +53,6 @@ EOF
 
 ```shell
 cat /etc/hosts
-```
-
-## Docker
-
-Build docker image
-
-```shell
-eval $(minikube docker-env)
-docker build -t argodemo:0.0.0 .
 ```
 
 ## Helm
@@ -126,18 +111,18 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 Expose ArgoCD if you want to directly access
 
 ```shell
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl port-forward svc/argocd-server -n argocd 9080:443
 ```
 
 Or modify ArgoCD as LoadBalancer to port 8080
 
 ```shell
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer", "ports": [{"port": 8080, "name": "argocd-server-port"}]}}'
+kubectl patch svc argocd-server -n argocd --type merge -p '{"spec": { "type": "LoadBalancer", "ports": [ { "name": "http", "port": 9080, "targetPort": 8080, "protocol": "TCP" }, { "name": "https", "port": 9443, "targetPort": 8080, "protocol": "TCP" } ] } }'
 ```
 
 Login
 
-- login: <http://localhost:8080>
+- login: <http://localhost:9080>
 - username: admin
 - password: <from-previous-secret-step>
 
