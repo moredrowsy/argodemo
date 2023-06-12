@@ -103,14 +103,6 @@ ArgoCD CLI login
 argocd login localhost:9080
 ```
 
-Two ArgoCD deployment options:
-
-- Create Application:
-
-  ```shell
-  argocd app create argodemo --repo https://github.com/moredrowsy/argodemo.git  --path k8s/argodemo-chart --revision feature/ubuntu-minikube --dest-server https://kubernetes.default.svc --dest-namespace default
-  ```
-
 - Create AppplicationSet:
 
   ```shell
