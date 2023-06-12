@@ -12,7 +12,7 @@ spec:
           - path: "k8s/argodemo-chart/envs/**/config.json"
   template:
     metadata:
-      name: "argodemo-{{ region }}-{{ env }}-{{ server }}"
+      name: "argodemo-{{ path[3] }}-{{ path[4] }}-{{ server }}"
     spec:
       project: default
       syncPolicy:
@@ -27,7 +27,7 @@ spec:
         path: k8s/argodemo-chart
         helm:
           valueFiles:
-            - "envs/{{ region }}/{{ env }}/values.yaml"
+            - "envs/{{ path[3] }}/{{ path[4] }}/values.yaml"
       destination:
         server: "https://kubernetes.default.svc"
         namespace: default

@@ -112,13 +112,3 @@ argocd login localhost:9080
   ```shell
   kubectl delete -f k8s/argocd/application-set.yaml
   ```
-
-- Create AppplicationSet:
-
-  ```shell
-  kubectl apply -f k8s/argocd/application-set.old.yaml
-  ```
-
-  ```shell
-  kubectl delete -f k8s/argocd/application-set.old.yaml
-  ```
