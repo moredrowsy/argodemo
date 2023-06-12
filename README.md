@@ -14,7 +14,7 @@ Project to demo ArgoCD in local machine
 ## Build Demo Spring Boot App
 
 ```shell
-mvn clean install
+mvn clean install -DskipTests
 ```
 
 ## Minikube
@@ -69,7 +69,7 @@ Build docker image
 
 ```shell
 eval $(minikube docker-env)
-docker build -t argodemo:0.0.0 .
+docker build -t argodemo:0.0.1 .
 ```
 
 ## Helm
