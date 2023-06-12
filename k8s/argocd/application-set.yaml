@@ -26,7 +26,7 @@ spec:
           - CreateNamespace=false
       source:
         repoURL: "https://github.com/moredrowsy/argodemo.git"
-        targetRevision: feature/ubuntu-minikube
+        targetRevision: feature/ubuntu-k3s
         path: k8s/argodemo-chart
         helm:
           valueFiles:
