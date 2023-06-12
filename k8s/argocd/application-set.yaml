@@ -6,8 +6,8 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/argoproj/applicationset.git
-        revision: HEAD
+        repoURL: "https://github.com/moredrowsy/argodemo.git"
+        revision: feature/ubuntu-k3s
         files:
           - path: "k8s/argodemo-chart/envs/**/config.json"
   template:
