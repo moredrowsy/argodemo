@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Chart.Name }}-{{ .Values.env }}-cm
+  name: {{ .Chart.Name }}-{{ .Values.region }}-{{ .Values.env }}-cm
 data:
   env: {{ .Values.env }}
+  region: {{ .Values.region }}

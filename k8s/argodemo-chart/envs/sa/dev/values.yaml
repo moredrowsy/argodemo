@@ -1,4 +1,5 @@
 env: dev
+region: sa
 
 image:
   repository: argodemo

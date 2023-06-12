@@ -1,4 +1,5 @@
-env: qa
+env: prod
+region: na
 
 image:
   repository: argodemo

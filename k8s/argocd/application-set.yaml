@@ -5,17 +5,23 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - list:
-        elements:
-          - region: na
-            env: dev
-          - region: na
-            env: qa
-          - region: na
-            env: prod
+    # matrix 'parent' generator
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - region: na
+                  server: 'abc'
+                - region: sa
+                  server: 'def'
+          - list:
+              elements:
+                - env: dev
+                - env: qa
+                - env: prod
   template:
     metadata:
-      name: "argodemo-{{ region }}-{{ env }}"
+      name: "argodemo-{{ region }}-{{ env }}-{{ server }}"
     spec:
       project: default
       syncPolicy:
@@ -30,7 +36,7 @@ spec:
         path: k8s/argodemo-chart
         helm:
           valueFiles:
-            - "env/{{ env }}/values.yaml"
+            - "envs/{{ region }}/{{ env }}/values.yaml"
       destination:
         server: "https://kubernetes.default.svc"
         namespace: default

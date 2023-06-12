@@ -50,10 +50,12 @@ sudo vim /etc/hosts
 sudo tee -a /etc/hosts << EOF
 #
 # argodemo local endpoints
-192.168.49.2 argodemo-dev.local
-192.168.49.2 argodemo-qa.local
-192.168.49.2 argodemo-prod.local
-192.168.49.2 argocd.local
+192.168.49.2 argodemo-na-dev.local
+192.168.49.2 argodemo-na-qa.local
+192.168.49.2 argodemo-na-prod.local
+192.168.49.2 argodemo-sa-dev.local
+192.168.49.2 argodemo-sa-qa.local
+192.168.49.2 argodemo-sa-prod.local
 EOF
 ```
 
@@ -77,9 +79,12 @@ docker build -t argodemo:0.0.0 .
 Inflate helm templates to k8s manifests
 
 ```shell
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/env/dev/values.yaml --output-dir k8s/output/dev
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/env/qa/values.yaml --output-dir k8s/output/qa
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/env/prod/values.yaml --output-dir k8s/output/prod
+helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/na/dev/values.yaml --output-dir k8s/output/na/dev
+helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/na/qa/values.yaml --output-dir k8s/output/na/qa
+helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/na/prod/values.yaml --output-dir k8s/output/na/prod
+helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/sa/dev/values.yaml --output-dir k8s/output/sa/dev
+helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/sa/qa/values.yaml --output-dir k8s/output/sa/qa
+helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/sa/prod/values.yaml --output-dir k8s/output/sa/prod
 ```
 
 Apply the k8s manifests
@@ -126,18 +131,12 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 Expose ArgoCD if you want to directly access
 
 ```shell
-kubectl port-forward svc/argocd-server -n argocd 8080:443
-```
-
-Or modify ArgoCD as LoadBalancer to port 8080
-
-```shell
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer", "ports": [{"port": 8080, "name": "argocd-server-port"}]}}'
+kubectl port-forward svc/argocd-server -n argocd 9080:443
 ```
 
 Login
 
-- login: <http://localhost:8080>
+- login: <http://localhost:9080>
 - username: admin
 - password: <from-previous-secret-step>
 
@@ -156,7 +155,7 @@ kubectl -n argocd delete secret argocd-initial-admin-secret
 ArgoCD CLI login
 
 ```shell
-artgocd login localhost:8080
+argocd login localhost:9080
 ```
 
 Two ArgoCD deployment options:
