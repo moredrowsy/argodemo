@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: argodemo
+  name: argodemo-appset
   namespace: argocd
 spec:
   generators:
@@ -9,7 +9,7 @@ spec:
         repoURL: "https://github.com/moredrowsy/argodemo.git"
         revision: feature/ubuntu-k3s
         files:
-          - path: "k8s/argodemo-chart/envs/**/config.json"
+          - path: "k8s/helm/chart/envs/**/config.json"
   template:
     metadata:
       name: "argodemo-{{ path[3] }}-{{ path[4] }}-{{ server }}"
@@ -24,7 +24,7 @@ spec:
       source:
         repoURL: "https://github.com/moredrowsy/argodemo.git"
         targetRevision: feature/ubuntu-k3s
-        path: k8s/argodemo-chart
+        path: k8s/helm/chart
         helm:
           valueFiles:
             - "envs/{{ path[3] }}/{{ path[4] }}/values.yaml"

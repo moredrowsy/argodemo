@@ -18,12 +18,12 @@ Project to demo ArgoCD in local machine
 Inflate helm templates to k8s manifests
 
 ```shell
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/na/dev/values.yaml --output-dir k8s/output/na/dev
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/na/qa/values.yaml --output-dir k8s/output/na/qa
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/na/prod/values.yaml --output-dir k8s/output/na/prod
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/sa/dev/values.yaml --output-dir k8s/output/sa/dev
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/sa/qa/values.yaml --output-dir k8s/output/sa/qa
-helm template k8s/argodemo-chart/ --values k8s/argodemo-chart/envs/sa/prod/values.yaml --output-dir k8s/output/sa/prod
+helm template k8s/helm/chart/ --values k8s/helm/chart/envs/na/dev/values.yaml --output-dir k8s/output/na/dev
+helm template k8s/helm/chart/ --values k8s/helm/chart/envs/na/qa/values.yaml --output-dir k8s/output/na/qa
+helm template k8s/helm/chart/ --values k8s/helm/chart/envs/na/prod/values.yaml --output-dir k8s/output/na/prod
+helm template k8s/helm/chart/ --values k8s/helm/chart/envs/sa/dev/values.yaml --output-dir k8s/output/sa/dev
+helm template k8s/helm/chart/ --values k8s/helm/chart/envs/sa/qa/values.yaml --output-dir k8s/output/sa/qa
+helm template k8s/helm/chart/ --values k8s/helm/chart/envs/sa/prod/values.yaml --output-dir k8s/output/sa/prod
 ```
 
 Apply the k8s manifests
