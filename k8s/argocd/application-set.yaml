@@ -12,22 +12,23 @@ spec:
           - path: "k8s/helm/chart/envs/**/config.json"
   template:
     metadata:
-      name: "argodemo-{{ path[3] }}-{{ path[4] }}-{{ server }}"
+      name: "argodemo-{{ path[4] }}-{{ path[5] }}-{{ server }}"
+      namespace: argodemo
     spec:
-      project: default
+      project: argodemo-project
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
-          - CreateNamespace=false
+          - CreateNamespace=true
       source:
         repoURL: "https://github.com/moredrowsy/argodemo.git"
         targetRevision: feature/ubuntu-k3s
         path: k8s/helm/chart
         helm:
           valueFiles:
-            - "envs/{{ path[3] }}/{{ path[4] }}/values.yaml"
+            - "envs/{{ path[4] }}/{{ path[5] }}/values.yaml"
       destination:
         server: "https://kubernetes.default.svc"
-        namespace: default
+        namespace: argodemo

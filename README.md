@@ -103,12 +103,17 @@ ArgoCD CLI login
 argocd login localhost:9080
 ```
 
-- Create AppplicationSet:
+- Kustomize ArgoCD:
 
   ```shell
+  kubectl apply -f k8s/argocd/project.yaml
   kubectl apply -f k8s/argocd/application-set.yaml
   ```
 
   ```shell
   kubectl delete -f k8s/argocd/application-set.yaml
+  ```
+  
+  ```shell
+  kubectl delete -f k8s/argocd/project.yaml
   ```
